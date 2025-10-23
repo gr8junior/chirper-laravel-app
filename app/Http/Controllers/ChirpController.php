@@ -63,14 +63,19 @@ class ChirpController extends Controller
     public function edit(string $id)
     {
         //
-    }
+        return view('chirps.edit',compact('chirp'));
+
+    }   
 
     /**
      * Update the specified resource in storage.
      */
     public function update(Request $request, string $id)
     {
-        //
+        //validate
+        $validated = $request->validate([
+            'message'=>'required|string|max:255',
+        ]);
     }
 
     /**
@@ -79,5 +84,6 @@ class ChirpController extends Controller
     public function destroy(string $id)
     {
         //
+
     }
 }
