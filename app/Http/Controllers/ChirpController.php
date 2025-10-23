@@ -78,7 +78,7 @@ class ChirpController extends Controller
 
         //Update the chirp
         $chirp->update($validated);
-        $this->authorize('update', $chirp);
+        
         return redirect('/')->with('success','Chirp updated!');
     }
 

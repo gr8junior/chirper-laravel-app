@@ -26,8 +26,7 @@ Route::view('/register', 'auth.register')
 Route::post('/register', Register::class)
         ->middleware('guest');
 
-//LOGOUT ROUTE
-
+//LOGOUT ROUTES
 Route::post('/logout', Logout::class)
 ->middleware('auth');
 
