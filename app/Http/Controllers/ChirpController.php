@@ -40,8 +40,10 @@ class ChirpController extends Controller
         //Create the chirp( no user for now - we'll add auth later)
         Chirp::create([
             'message' => $validated['message'],
-            'user_id' => null, 
         ]);
+
+        //Redirect back to the chirps list
+        return redirect('/')->with('success', 'Chirp created successfully!');   
     }
 
     /**
