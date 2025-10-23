@@ -60,7 +60,7 @@ class ChirpController extends Controller
     /**
      * Show the form for editing the specified resource.
      */
-    public function edit(string $id)
+    public function edit(Chirp $chirp)
     {
         //
         return view('chirps.edit',compact('chirp'));
@@ -70,20 +70,28 @@ class ChirpController extends Controller
     /**
      * Update the specified resource in storage.
      */
-    public function update(Request $request, string $id)
+    public function update(Request $request, Chirp $chirp)
     {
         //validate
         $validated = $request->validate([
             'message'=>'required|string|max:255',
         ]);
+
+        //Update the chirp
+        $chirp->update($validated);
+        
+        return redirect('/')->with('success','Chirp updated!');
     }
 
     /**
      * Remove the specified resource from storage.
      */
-    public function destroy(string $id)
+    public function destroy(Chirp $chirp)
     {
-        //
+        //Authorize the delete action
+       // this->authorize('delete', $chirp);
+        $chirp->delete();
+        return redirect('/')->with('success','Chirp deleted!');
 
     }
 }
