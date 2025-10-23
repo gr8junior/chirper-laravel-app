@@ -41,10 +41,7 @@ class ChirpController extends Controller
         ]); 
 
         //Create the chirp( no user for now - we'll add auth later)
-        Chirp::create([
-            'message' => $validated['message'],
-        ]);
-
+       auth()->user()->chirps()->create($validated);
         //Redirect back to the chirps list
         return redirect('/')->with('success', 'Your Chirp has been posted successfully!');   
     }
@@ -61,7 +58,8 @@ class ChirpController extends Controller
      * Show the form for editing the specified resource.
      */
     public function edit(Chirp $chirp)
-    {
+    {       
+        $this->authorize('update', $chirp);
         //
         return view('chirps.edit',compact('chirp'));
 
@@ -71,7 +69,8 @@ class ChirpController extends Controller
      * Update the specified resource in storage.
      */
     public function update(Request $request, Chirp $chirp)
-    {
+    {   
+        $this->authorize('update', $chirp);
         //validate
         $validated = $request->validate([
             'message'=>'required|string|max:255',
@@ -79,7 +78,7 @@ class ChirpController extends Controller
 
         //Update the chirp
         $chirp->update($validated);
-        
+        $this->authorize('update', $chirp);
         return redirect('/')->with('success','Chirp updated!');
     }
 
@@ -89,7 +88,7 @@ class ChirpController extends Controller
     public function destroy(Chirp $chirp)
     {
         //Authorize the delete action
-       // this->authorize('delete', $chirp);
+        $this->authorize('delete', $chirp);
         $chirp->delete();
         return redirect('/')->with('success','Chirp deleted!');
 

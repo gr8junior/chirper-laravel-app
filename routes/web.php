@@ -5,9 +5,10 @@ use App\Http\Controllers\ChirpController;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\Auth\Logout;
 
+
 Route::get('/', [ChirpController::class, 'index']);
 
-Route::middlware('auth')->group(function(){
+Route::middleware('auth')->group(function(){
 
 Route::post('/chirps', [ChirpController::class, 'store']);
 Route::get('/chirps/{chirp}/edit', [ChirpController::class, 'edit']);
