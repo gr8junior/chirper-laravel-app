@@ -8,11 +8,11 @@
         <div class="hero-content flex-col">
             <div class="card w-96 bg-base-100">
                 <div class="card-body">
-                    <h1 class="text-3xl font-bold text-center mb-6">Sign In</h1>
+                    <h1 class="text-3xl font-bold text-center mb-6">Welcome Back</h1>
 
-                    <form method="POST" action="/register">
+                    <form method="POST" action="/login">
                         @csrf
-                        
+
                         <!-- Email -->
                         <label class="floating-label mb-6">
                             <input type="email"
@@ -20,7 +20,8 @@
                                    placeholder="mail@example.com"
                                    value="{{ old('email') }}"
                                    class="input input-bordered @error('email') input-error @enderror"
-                                   required>
+                                   required
+                                   autofocus>
                             <span>Email</span>
                         </label>
                         @error('email')
@@ -44,15 +45,29 @@
                             </div>
                         @enderror
 
-                       
+                        <!-- Remember Me -->
+                        <div class="form-control mt-4">
+                            <label class="label cursor-pointer justify-start">
+                                <input type="checkbox"
+                                       name="remember"
+                                       class="checkbox">
+                                <span class="label-text ml-2">Remember me</span>
+                            </label>
+                        </div>
 
                         <!-- Submit Button -->
                         <div class="form-control mt-8">
                             <button type="submit" class="btn btn-primary btn-sm w-full">
-                                login
+                                Sign In
                             </button>
                         </div>
                     </form>
+
+                    <div class="divider">OR</div>
+                    <p class="text-center text-sm">
+                        Don't have an account?
+                        <a href="/register" class="link link-primary">Register</a>
+                    </p>
                 </div>
             </div>
         </div>
