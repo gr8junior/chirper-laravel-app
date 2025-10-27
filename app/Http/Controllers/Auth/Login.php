@@ -20,7 +20,8 @@ class Login extends Controller
         if (Auth::attempt($credentials, $request->boolean('remember'))) {
             // Regenerate session for security
             $request->session()->regenerate();
- 
+            
+
             // Redirect to intended page or home
             return redirect()->intended('/')->with('success', 'Welcome back!');
         }
