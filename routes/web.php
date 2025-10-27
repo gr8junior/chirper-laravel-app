@@ -4,6 +4,7 @@ use App\Http\Controllers\Auth\Register;
 use App\Http\Controllers\ChirpController;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\Auth\Logout;
+use App\Http\Controllers\Auth\Login;
 
 
 Route::get('/', [ChirpController::class, 'index']);
@@ -28,7 +29,15 @@ Route::post('/register', Register::class)
 
 //LOGOUT ROUTES
 Route::post('/logout', Logout::class)
-->middleware('auth');
+    ->middleware('auth')
+    ->name('logout');
 
 
-Route::view('/login', 'auth.login');
+//LOGIN ROUTES
+Route::view('/login', 'auth.login')
+    ->middleware('guest')
+    ->name('login');
+
+Route::post('login' , Login::class)
+    ->middleware('auth')
+    ->middleware('guest');
